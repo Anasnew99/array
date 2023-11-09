@@ -1,3 +1,3 @@
-module github.com/anasnew99/array
+module github.com/Anasnew99/array
 
 go 1.21.3
