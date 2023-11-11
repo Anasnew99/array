@@ -21,3 +21,13 @@ func (a *Array[T]) Pop() T {
 	*a = []T(*a)[:len(*a)-1]
 	return item
 }
+
+func (a *Array[T]) Splice(index int, count int) Array[T] {
+
+	newArray := make([]T, count)
+	copy(newArray, (*a)[index:index+count])
+	*a = append([]T(*a)[:index], []T(*a)[index+count:]...)
+
+	return newArray
+
+}
