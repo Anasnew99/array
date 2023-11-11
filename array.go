@@ -1,8 +1,8 @@
 package array
 
-type Array[T comparable] []T
+type Array[T interface{}] []T
 
-func New[T comparable](arr ...T) Array[T] {
+func New[T interface{}](arr ...T) Array[T] {
 	a := Array[T](arr)
 	return a
 }
