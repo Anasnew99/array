@@ -46,9 +46,17 @@ func (a *Array[T]) Sort(compareFn ...sortParams[T]) {
 		// If no comparator is provided, use the default for the type
 		var zero T
 		switch reflect.TypeOf(zero).Kind() {
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Float32, reflect.Float64, reflect.String:
-			comparator = sortParams[T](reflect.ValueOf(func(a int, b int) bool {
-				return a < b
+		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+			comparator = sortParams[T](reflect.ValueOf(func(a T, b T) bool {
+				return reflect.ValueOf(a).Int() < reflect.ValueOf(b).Int()
+			}).Interface().(func(T, T) bool))
+		case reflect.Float32, reflect.Float64:
+			comparator = sortParams[T](reflect.ValueOf(func(a T, b T) bool {
+				return reflect.ValueOf(a).Float() < reflect.ValueOf(b).Float()
+			}).Interface().(func(T, T) bool))
+		case reflect.String:
+			comparator = sortParams[T](reflect.ValueOf(func(a T, b T) bool {
+				return reflect.ValueOf(a).String() < reflect.ValueOf(b).String()
 			}).Interface().(func(T, T) bool))
 		default:
 			panic("Unsupported type or provide one comparator function")
