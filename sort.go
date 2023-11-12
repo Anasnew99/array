@@ -6,34 +6,39 @@ import (
 
 type sortParams[T interface{}] func(a T, b T) bool
 
-func merge[T interface{}](a Array[T], mid int, compareFn sortParams[T]) {
-	// merge two sorted arrays
-	i := 0
-	j := mid
-	for i < j && j < len(a) {
-		if compareFn((a)[i], (a)[j]) {
-			// move i to the right
+func merge[T any](a, b Array[T], compareFn sortParams[T]) []T {
+	size, i, j := len(a)+len(b), 0, 0
+	result := make(Array[T], size, size)
+
+	for k := 0; k < size; k++ {
+		switch true {
+		case i == len(a):
+			// all the elements of a have been sorted
+			result[k] = b[j]
+			j++
+		case j == len(b):
+			// all the elements of b have been sorted
+			result[k] = a[i]
 			i++
-		} else {
-			temp := (a)[j]
-			a[j] = (a)[i]
-			(a)[i] = temp
+		case compareFn(a[i], b[j]):
+			// element of a is less than element of b
+			result[k] = a[i]
 			i++
+		default:
+			// element of b is less than element of a
+			result[k] = b[j]
 			j++
 		}
 	}
-
+	return result
 }
 
-func mergeSort[T interface{}](a Array[T], compareFn sortParams[T]) {
-	if len(a) <= 1 {
-		return
+func mergeSort[T interface{}](a Array[T], compareFn sortParams[T]) Array[T] {
+	if len(a) < 2 {
+		return a
 	}
 	mid := len(a) / 2
-	mergeSort(a[:mid], compareFn)
-	mergeSort(a[mid:], compareFn)
-	merge(a, mid, compareFn)
-
+	return merge(mergeSort(a[:mid], compareFn), mergeSort(a[mid:], compareFn), compareFn)
 }
 
 // compareFn is an optional parameter. only one argument is needed
@@ -63,5 +68,5 @@ func (a *Array[T]) Sort(compareFn ...sortParams[T]) {
 		}
 	}
 
-	mergeSort(*a, comparator)
+	*a = mergeSort(*a, comparator)
 }
