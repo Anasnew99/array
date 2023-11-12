@@ -1,4 +1,4 @@
-# Project Name
+# JS Arrays in Go
 
 This project is a simple go library that will help working with arrays easy in go. I started this project to learn go. I am an intermediate JS developer. I want to learn go and I thought this would be a good way to learn go. I am open to suggestions and contributions. I am also open to any feedback. I am trying to build 'arrays' like javascript in 'go'
 
