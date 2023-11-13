@@ -6,7 +6,7 @@ This project is a simple go library that will help working with arrays easy in g
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Contributing](#contribution)
 - [License](#license)
 
 ## Installation
