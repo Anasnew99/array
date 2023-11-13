@@ -10,3 +10,8 @@ func New[T interface{}](arr ...T) Array[T] {
 	a := Array[T](arr)
 	return a
 }
+
+// Go returns the underlying slice of the array.
+func (a Array[T]) Go() []T {
+	return ([]T(a))
+}
