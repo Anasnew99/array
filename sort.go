@@ -8,7 +8,7 @@ type sortParams[T interface{}] func(a T, b T) bool
 
 func merge[T any](a, b Array[T], compareFn sortParams[T]) []T {
 	size, i, j := len(a)+len(b), 0, 0
-	result := make(Array[T], size, size)
+	result := make(Array[T], size)
 
 	for k := 0; k < size; k++ {
 		switch true {
