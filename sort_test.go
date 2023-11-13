@@ -1,7 +1,6 @@
 package array
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -25,7 +24,6 @@ func TestSort(t *testing.T) {
 
 	c := New[int](100, 90, 80, 90, 80)
 	c.Sort()
-	fmt.Println(c)
 	if c[0] != 80 || c[1] != 80 || c[2] != 90 || c[3] != 90 || c[4] != 100 {
 		t.Errorf("Not sorted correctly")
 	}
